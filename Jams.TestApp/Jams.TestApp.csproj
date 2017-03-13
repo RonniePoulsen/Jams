@@ -4,15 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{ACCD9AEC-F950-4848-A8AE-3C4C945106FF}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{13A57057-A273-47CB-8648-3D154529719E}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Jams.DAL</RootNamespace>
-    <AssemblyName>Jams.DAL</AssemblyName>
+    <RootNamespace>Jams.TestApp</RootNamespace>
+    <AssemblyName>Jams.TestApp</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -41,8 +44,6 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -51,67 +52,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Address.cs">
-      <DependentUpon>JamsDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Application.cs">
-      <DependentUpon>JamsDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Company.cs">
-      <DependentUpon>JamsDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\JamsDBModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>JamsDBModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\JamsDBModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>JamsDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\JamsDBModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>JamsDBModel.edmx</DependentUpon>
-    </Compile>
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\CompanyRepository.cs" />
-    <Compile Include="Repository\IApplicationRepository.cs" />
-    <Compile Include="Repository\ICompanyRepository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.Config" />
-    <EntityDeploy Include="Models\JamsDBModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>JamsDBModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="Models\JamsDBModel.edmx.diagram">
-      <DependentUpon>JamsDBModel.edmx</DependentUpon>
-    </None>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup />
-  <ItemGroup>
+    <ProjectReference Include="..\Jams.DAL\Jams.DAL.csproj">
+      <Project>{accd9aec-f950-4848-a8ae-3c4c945106ff}</Project>
+      <Name>Jams.DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Jams.Domain\Jams.Domain.csproj">
       <Project>{61ce86cf-1536-4093-9309-d9607bdbb830}</Project>
       <Name>Jams.Domain</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Models\JamsDBModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>JamsDBModel.edmx</DependentUpon>
-      <LastGenOutput>JamsDBModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\JamsDBModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>JamsDBModel.edmx</DependentUpon>
-      <LastGenOutput>JamsDBModel.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
