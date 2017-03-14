@@ -14,7 +14,22 @@ namespace Jams.TestApp
         {
             ICompanyRepository _companyRepository = new CompanyRepository();
 
-            var companies = _companyRepository.GetAllCompanies(); 
+            var updatedCompany = new Domain.Company
+            {
+                CompanyId = 3,
+                Name = "VISMA Insulting",
+                Address = new Domain.Address
+                {
+                    Street = "Nøregaaaaardsvej 32",
+                    Zip = 2860,
+                    City = "Søborg"
+                },
+                Reference = "Hansen Sabrina",
+                Website = "www.facebook.dk"
+            };
+            _companyRepository.UpdateCompany(updatedCompany);
+            //var companies = _companyRepository.GetAllCompanies();
+            //var company = _companyRepository.GetCompany(3); 
             //CreateCompany();
         }
 

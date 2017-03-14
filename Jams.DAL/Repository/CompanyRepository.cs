@@ -37,7 +37,24 @@ namespace Jams.DAL.Repository
 
         public Domain.Company GetCompany(int id)
         {
-            throw new NotImplementedException();
+            if (id == 0) return null;
+            using(JamsDBEntities db = new JamsDBEntities())
+            {
+                var domainCompany = db.Companies.Where(c => c.CompanyId == id).Select(company => new Domain.Company
+                {
+                    CompanyId = company.CompanyId,
+                    Name = company.Name,
+                    Address = new Domain.Address
+                    {
+                        Street = company.Address,
+                        Zip = company.Zip,
+                        City = company.City
+                    },
+                    Reference = company.Reference,
+                    Website = company.Website
+                }).FirstOrDefault();
+                return domainCompany;
+            }
         }
 
         public bool CreateCompany(Domain.Company company)
@@ -56,12 +73,27 @@ namespace Jams.DAL.Repository
                 });
                 db.SaveChanges();
             }
-            return true;
+            return true; // TODO: Maybe return the created CompanyId instead to use when creating a new Application and we need the CompanyId?! 
         }
 
-        public bool UpdateCompany(Domain.Company company)
+        public bool UpdateCompany(Domain.Company updatedCompany)
         {
-            throw new NotImplementedException();
+            if (updatedCompany == null) return false;
+            
+            using(JamsDBEntities db = new JamsDBEntities())
+            {
+                var dbCompany = db.Companies.Where(c => c.CompanyId == updatedCompany.CompanyId).FirstOrDefault();
+                if (dbCompany == null) return false;
+
+                dbCompany.Name = updatedCompany.Name;
+                dbCompany.Address = updatedCompany.Address.Street;
+                dbCompany.Zip = updatedCompany.Address.Zip;
+                dbCompany.City = updatedCompany.Address.City;
+                dbCompany.Reference = updatedCompany.Reference;
+                dbCompany.Website = updatedCompany.Website;
+                db.SaveChanges();
+                return true;
+            }
         }
     }
 }
