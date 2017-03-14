@@ -9,21 +9,30 @@ namespace Jams.TestApp
 {
     public class Program
     {
+
         static void Main(string[] args)
+        {
+            ICompanyRepository _companyRepository = new CompanyRepository();
+
+            var companies = _companyRepository.GetAllCompanies(); 
+            //CreateCompany();
+        }
+
+        private static void CreateCompany()
         {
             ICompanyRepository _companyRepository = new CompanyRepository();
 
             var company = new Domain.Company
             {
-                Name = "Capgemini Sogeti Danmark",
+                Name = "Kraftvaerk A/S",
                 Address = new Domain.Address
                 {
-                    Street = "Delta Park",
-                    StreetNumber = 40,
-                    Zip = 2665,
-                    City = "Vallensbæk Strand"
+                    Street = "NJALSGADE 21G, 5. SAL",
+                    Zip = 2300,
+                    City = "København S"
                 },
-                Website = "www.capgeminisogeti.dk"
+                Reference = "Rostislav Semenov",
+                Website = "www.kraftvaerk.dk"
             };
             if (_companyRepository.CreateCompany(company))
             {

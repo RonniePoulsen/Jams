@@ -12,7 +12,27 @@ namespace Jams.DAL.Repository
     {
         public List<Domain.Company> GetAllCompanies()
         {
-            throw new NotImplementedException();
+            var companies = new List<Domain.Company>();
+            using (JamsDBEntities db = new JamsDBEntities())
+            {
+                foreach (var company in db.Companies.ToList())
+                {
+                    companies.Add(new Domain.Company
+                    {
+                        CompanyId = company.CompanyId,
+                        Name = company.Name,
+                        Address = new Domain.Address
+                        {
+                            Street = company.Address,
+                            Zip = company.Zip,
+                            City = company.City
+                        },
+                        Reference = company.Reference,
+                        Website = company.Website
+                    });
+                }
+            }
+            return companies;
         }
 
         public Domain.Company GetCompany(int id)
@@ -25,25 +45,17 @@ namespace Jams.DAL.Repository
             if (company == null) return false;
             using(JamsDBEntities db = new JamsDBEntities())
             {
-                var newAddress = new Models.Address
-                {
-                    Street = company.Address.Street,
-                    StreetNumber = company.Address.StreetNumber,
-                    Zip = company.Address.Zip,
-                    City = company.Address.City
-                };
-                db.Addresses.Add(newAddress);
-                db.SaveChanges();
-                var newCompany = new Models.Company
+                db.Companies.Add(new Models.Company
                 {
                     Name = company.Name,
-                    AddressId = newAddress.AddressId, // AddressId is returned after Address object is saved to DB.
+                    Address = company.Address.Street,
+                    Zip = company.Address.Zip,
+                    City = company.Address.City,
+                    Reference = company.Reference,
                     Website = company.Website
-                };
-                db.Companies.Add(newCompany);
+                });
                 db.SaveChanges();
             }
-
             return true;
         }
 
