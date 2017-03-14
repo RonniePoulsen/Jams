@@ -11,6 +11,7 @@ namespace Jams.Domain
         public int CompanyId { get; set; }
         public string Name { get; set; }
         public Address Address { get; set; }
+        public string Reference { get; set; }
         public string Website { get; set; }
     }
 }

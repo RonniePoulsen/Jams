@@ -10,6 +10,7 @@ namespace Jams.Domain
     {
         public int ApplicationId { get; set; }
         public Company Company { get; set; }
+        public string JobTitle { get; set; }
         public Motivation Motivation { get; set; }
         public DateTime DateSent { get; set; }
         public DateTime DateUpdated { get; set; }
